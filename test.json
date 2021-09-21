@@ -1,0 +1,93 @@
+{
+    "20-8-2021": {
+        "events": [
+            {
+                "eventName": "Deneme Etkinliği 1Deneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme EtkinliğiDeneme Etkinliği",
+                "eventTime": "11:40",
+                "isFinished": false
+            },
+            {
+                "eventName": "Deneme Etkinliği 2",
+                "eventTime": "12:40",
+                "isFinished": false
+            },
+            {
+                "eventName": "Deneme Etkinliği 3",
+                "eventTime": "13:40",
+                "isFinished": false
+            },
+            {
+                "eventName": "Deneme Etkinliği 4",
+                "eventTime": "14:40",
+                "isFinished": false
+            },
+            {
+                "eventName": "Deneme Etkinliği 5",
+                "eventTime": "15:40",
+                "isFinished": false
+            },
+            {
+                "eventName": "Deneme Etkinliği 5",
+                "eventTime": "15:40",
+                "isFinished": false
+            },
+            {
+                "eventName": "Deneme Etkinliği 5",
+                "eventTime": "15:40",
+                "isFinished": false
+            },
+            {
+                "eventName": "Deneme Etkinliği 5",
+                "eventTime": "15:40",
+                "isFinished": false
+            },
+            {
+                "eventName": "Deneme Etkinliği 5",
+                "eventTime": "15:40",
+                "isFinished": false
+            },
+            {
+                "eventName": "Deneme Etkinliği 5",
+                "eventTime": "15:40",
+                "isFinished": false
+            },
+            {
+                "eventName": "Deneme Etkinliği 5",
+                "eventTime": "15:40",
+                "isFinished": false
+            },
+            {
+                "eventName": "Deneme Etkinliği 5",
+                "eventTime": "15:40",
+                "isFinished": false
+            }
+        ]
+    },
+    "2-8-2021": {
+        "events": [
+            {
+                "eventName": "Deneme Etkinliği 12",
+                "eventTime": "11:40",
+                "isFinished": false
+            }
+        ]
+    },
+    "3-8-2021": {
+        "events": [
+            {
+                "eventName": "Deneme Etkinliği 13",
+                "eventTime": "11:40",
+                "isFinished": false
+            }
+        ]
+    },
+    "4-8-2021": {
+        "events": [
+            {
+                "eventName": "Deneme Etkinliği 14",
+                "eventTime": "11:40",
+                "isFinished": false
+            }
+        ]
+    }
+}

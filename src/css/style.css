@@ -1,4 +1,49 @@
-/* CSS Reset */
+:root {
+    --dark-body: #4d4c5a;
+    --dark-main: #141529;
+    --dark-second: #79788c;
+    --dark-hover: #323048;
+    --dark-text: #f8fbff;
+    --dark-scrollbar: #fdfdfd;
+    --dark-scrollbar-thumb: #c5c5c5;
+
+    --light-body: #f3f8fe;
+    --light-main: #fdfdfd;
+    --light-second: #c3c2c8;
+    --light-hover: #edf0f5;
+    --light-text: #151426;
+    --light-scrollbar: rgb(85, 85, 85);
+    --light-scrollbar-thumb: rgb(54, 54, 54);
+
+    --blue: #0000ff;
+    --blue-hover: #0000b9;
+    --white: #fff;
+
+    --shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+    --font-family: cursive;
+}
+
+.dark {
+    --bg-body: var(--dark-body);
+    --bg-main: var(--dark-main);
+    --bg-second: var(--dark-second);
+    --color-hover: var(--dark-hover);
+    --color-txt: var(--dark-text);
+    --scrollbar: var(--dark-scrollbar);
+    --scrollbar-thumb: var(--dark-scrollbar-thumb);
+}
+
+.light {
+    --bg-body: var(--light-body);
+    --bg-main: var(--light-main);
+    --bg-second: var(--light-second);
+    --color-hover: var(--light-hover);
+    --color-txt: var(--light-text);
+    --scrollbar: var(--light-scrollbar);
+    --scrollbar-thumb: var(--light-scrollbar-thumb);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -17,44 +62,165 @@ body {
     min-height: 100vh;
 }
 
-/* Responsive Font Sizing */
 html {
     font-size: min(max(1rem, 4vw), 22px);
-}
-
-:root {
-	font-family: 'Open Sans';
-	--text-primary: #1f1f1f;
-	--text-secondary: #000000;
-	--bg-primary: #ffffff;
-	--bg-secondary: #e4e4e4;
-
-	--calendar-margin: 5rem;
-    --calendar-width: 5rem;
-    --calendar-height: 5rem;
 }
 
 body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background: var(--bg-body);
+    color: var(--color-txt);
+    overflow: hidden;
 }
 
 .container-calendar {
-    border: 1px solid var(--text-secondary);
+    width: 90vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--color-txt);
 }
 
-/* Themes */
-.dark {
-	--text-primary: #b6b6b6;
-	--text-secondary: #ececec;
-	--bg-primary: #23232e;
-	--bg-secondary: #141418;
+.main-container {
+    background: var(--bg-main);
+    border-radius: 8%;
+    padding: 1rem;
 }
 
-.light {
-	--text-primary: #1f1f1f;
-	--text-secondary: #000000;
-	--bg-primary: #ffffff;
-	--bg-secondary: #e4e4e4;
+.button-container-calendar h3 {
+    display: inline;
+}
+
+.button-container-calendar button {
+    background: none;
+    outline: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--color-txt);
+    cursor: pointer;
+    margin: 0 1rem;
+}
+
+table {
+    table-layout: fixed;
+}
+
+th {
+    padding: .1rem;
+    width: 1.7rem;
+}
+
+td {
+    padding: .2rem;
+    border-radius: 50%;
+}
+
+.date-picker:hover/*:not(.selected)*/ {
+    background: var(--color-hover);
+    cursor: pointer;
+}
+
+.selected {
+    border: 2px solid var(--blue);
+    cursor: pointer;
+}
+/*
+.selected:hover {
+    background: var(--blue-hover);
+}*/
+
+.events-container {
+    display: flex;
+    position: relative;
+    overflow: auto;
+    max-height: 80vh;
+    width: 50vw;
+    margin-left: 1rem;
+    background: var(--bg-main);
+    border-radius: 15px;
+}
+
+.events-container::-webkit-scrollbar {
+	width: 12px;
+	background-color: var(--scrollbar);
+    border-radius: 11px;
+}
+
+.events-container::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: var(--scrollbar-thumb);
+}
+
+.event {
+    display: flex;
+    margin: 1rem 0;
+    padding: 0 10px;
+}
+
+.event-date {
+    border-right: 2px solid var(--color-txt);
+    padding-right: 10px;
+    margin-right: 10px;
+}
+
+.add-new-event {
+    position: absolute;
+    top: .7rem;
+    right: .7rem;
+    font-size: 1rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 100%;
+    border: none;
+    outline: none;
+    background: var(--bg-body);
+    color: var(--color-txt);
+    cursor: pointer;
+    transition: transform .5s;
+}
+
+.add-new-event:hover {
+    box-shadow: var(--shadow);
+    transform: scale(1.1);
+}
+
+.toggle {
+    display: flex;
+    margin-top: .5rem;
+}
+
+.toggle span {
+    margin-right: 10px;
+    color: var(--color-txt);
+}
+
+.dark-mode-switch {
+    position: relative;
+    width: 48px;
+    height: 25px;
+    border-radius: 14px;
+    background-color: var(--bg-second);
+    cursor: pointer;
+}
+
+.dark-mode-switch-ident {
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background-color: var(--bg-main);
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: left 0.2s ease-in-out;
+}
+
+.dark .dark-mode-switch .dark-mode-switch-ident {
+    top: 2px;
+    left: calc(2px + 50%);
 }

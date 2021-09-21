@@ -6,45 +6,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Takvim   </title>
     <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
-<body>
-    <div class="wrapper">
+<body class="dark">
+    <input type="date" placeholder="dd-mm-yyyy" name="new-event-date" id="new-event-date">
+    <input type="time" name="new-event-time" id="new-event-time">
+    <!-- <div class="wrapper">
 
         <div class="container-calendar">
-            <h3 id="monthAndYear"></h3>
             
-            <div class="button-container-calendar">
-                <button id="previous" onclick="previous()">&#8249;</button>
-                <button id="next" onclick="next()">&#8250;</button>
+            <div class="main-container">
+                <div class="button-container-calendar">
+                    <button id="previous" onclick="previous()">&#8249;</button>
+                    <h3 id="monthAndYear"></h3>
+                    <button id="next" onclick="next()">&#8250;</button>
+                </div>
+                
+                <table class="table-calendar" id="calendar" data-lang="tr">
+                    <thead id="thead-month"></thead>
+                    <tbody id="calendar-body"></tbody>
+                </table>
+                
+                <div class="footer-container-calendar">
+                     <label for="month">Tarihe Git: </label>
+                     <select id="month" onchange="jump()">
+                         <option value=0>Ocak</option>
+                         <option value=1>Şubat</option>
+                         <option value=2>Mart</option>
+                         <option value=3>Nisan</option>
+                         <option value=4>Mayıs</option>
+                         <option value=5>Haziran</option>
+                         <option value=6>Temmuz</option>
+                         <option value=7>Ağustos</option>
+                         <option value=8>Eylül</option>
+                         <option value=9>Ekim</option>
+                         <option value=10>Kasım</option>
+                         <option value=11>Aralık</option>
+                     </select>
+                     <select id="year" onchange="jump()"></select>       
+                </div>
+
+                <div class="toggle">
+                    <span>Koyu Tema</span>
+                    <div class="dark-mode-switch">
+                        <div class="dark-mode-switch-ident"></div>
+                    </div>
+                </div>
+
             </div>
-            
-            <table class="table-calendar" id="calendar" data-lang="en">
-                <thead id="thead-month"></thead>
-                <tbody id="calendar-body"></tbody>
-            </table>
-            
-            <div class="footer-container-calendar">
-                 <label for="month">Jump To: </label>
-                 <select id="month" onchange="jump()">
-                     <option value=0>Jan</option>
-                     <option value=1>Feb</option>
-                     <option value=2>Mar</option>
-                     <option value=3>Apr</option>
-                     <option value=4>May</option>
-                     <option value=5>Jun</option>
-                     <option value=6>Jul</option>
-                     <option value=7>Aug</option>
-                     <option value=8>Sep</option>
-                     <option value=9>Oct</option>
-                     <option value=10>Nov</option>
-                     <option value=11>Dec</option>
-                 </select>
-                 <select id="year" onchange="jump()"></select>       
+
+            <div class="events-container" id="events-container">
+                <div id="events-list"></div>
+                
+                <button class="add-new-event">+</button>
             </div>
-    
+
         </div>
         
-    </div>
+    </div> -->
 
     <!-- JS -->
     <script src="src/js/calendar.js"></script>
