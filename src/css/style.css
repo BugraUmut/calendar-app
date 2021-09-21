@@ -190,6 +190,32 @@ td {
     transform: scale(1.1);
 }
 
+.new-event-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: var(--bg-main);
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.form-group {
+    width: 100%;
+    text-align: start;
+    padding-top: 1rem;
+}
+
+.form-group > .new-event {
+    float: right;
+    width: 70%;
+}
+
+.new-event-button {
+    /* Make bootstrap button ( outline ) */
+}
+
 .toggle {
     display: flex;
     margin-top: .5rem;

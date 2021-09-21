@@ -9,8 +9,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
 <body class="dark">
-    <input type="date" placeholder="dd-mm-yyyy" name="new-event-date" id="new-event-date">
-    <input type="time" name="new-event-time" id="new-event-time">
+    <div class="new-event-form">
+        <h3>Yeni Etkinlik</h3>
+        <div class="form-group">
+            <label for="new-event-time">Saat: </label>
+            <input class="new-event" type="time" name="new-event-time" id="new-event-time">
+        </div>
+        <div class="form-group">
+            <label for="new-event-text">Etkinlik: </label>
+            <textarea class="new-event" name="new-event-text" id="new-event-text" cols="30" rows="10"></textarea>
+        </div>
+
+        <button class="new-event-button">Oluştur</button>
+    </div>
     <!-- <div class="wrapper">
 
         <div class="container-calendar">
