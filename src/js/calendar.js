@@ -181,8 +181,11 @@ dark_mode_toggle.onclick = () => {
 }
 
 let new_event_form_open = document.querySelector('.add-new-event')
+let new_event_form_close = document.querySelector('#new-event-button')
 
-new_event_form_open.onclick = () => {
+new_event_form_open.onclick = changeWindows()
+
+function changeWindows(elemToHide, elemToShow) {
 
 }
 

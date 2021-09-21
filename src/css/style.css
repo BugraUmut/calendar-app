@@ -6,6 +6,7 @@
     --dark-text: #f8fbff;
     --dark-scrollbar: #fdfdfd;
     --dark-scrollbar-thumb: #c5c5c5;
+    --dark-button-color: #6c757d;
 
     --light-body: #f3f8fe;
     --light-main: #fdfdfd;
@@ -14,6 +15,8 @@
     --light-text: #151426;
     --light-scrollbar: rgb(85, 85, 85);
     --light-scrollbar-thumb: rgb(54, 54, 54);
+    --light-button-color: #343a40;
+
 
     --blue: #0000ff;
     --blue-hover: #0000b9;
@@ -32,6 +35,7 @@
     --color-txt: var(--dark-text);
     --scrollbar: var(--dark-scrollbar);
     --scrollbar-thumb: var(--dark-scrollbar-thumb);
+    --button-color: var(--dark-button-color);
 }
 
 .light {
@@ -42,6 +46,7 @@
     --color-txt: var(--light-text);
     --scrollbar: var(--light-scrollbar);
     --scrollbar-thumb: var(--light-scrollbar-thumb);
+    --button-color: var(--light-button-color);
 }
 
 * {
@@ -190,7 +195,13 @@ td {
     transform: scale(1.1);
 }
 
-.new-event-form {
+.m_hide {
+    position: absolute;
+    transform: translateX(-900%);
+    transform: translateY(-900%);
+}
+
+#new-event-form {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -213,7 +224,21 @@ td {
 }
 
 .new-event-button {
-    /* Make bootstrap button ( outline ) */
+    border: 2px solid var(--button-color);
+    color: var(--button-color);
+    background: transparent;
+    background-image: none;
+    outline: none;
+    cursor: pointer;
+    margin-top: 1rem;
+    padding: 15px;
+    border-radius: 10px;
+    transition: .5s;
+}
+
+.new-event-button:hover {
+    background: var(--button-color);
+    color: #fff;
 }
 
 .toggle {
