@@ -1,15 +1,21 @@
-const { app, BrowserWindow } = require('electron') 
+const { app, BrowserWindow } = require('electron');
+
 app.whenReady().then(() => {
-	createWindow()
+	createWindow();
 
 	app.on('activate', function() {
-		if (BrowserWindow.getAllWindows().length === 0) createWindow()
-	}) 
-})
+		if (BrowserWindow.getAllWindows().length === 0) createWindow();
+	});
+});
 
 app.on('window-all-closed', function() {
-	if (process.platform !== 'darwin') app.quit()
-})
+	if (process.platform !== 'darwin') app.quit();
+});
+
+app.on('certificate-error', function(event, webContents, url, error, certificate, callback) {
+	event.preventDefault();
+	callback(true);
+});
 
 function createWindow() {
 	const win = new BrowserWindow({
@@ -18,7 +24,8 @@ function createWindow() {
 		webPreferences: {
 			nativeWindowOpen: true
 		}
-	})
-	win.removeMenu()
+	});
+	win.removeMenu();
+	win.webContents.openDevTools();
 	win.loadFile('index.html')
 }

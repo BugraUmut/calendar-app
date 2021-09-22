@@ -4,24 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Takvim   </title>
+    <title>Takvim</title>
     <link rel="stylesheet" href="src/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://kit.fontawesome.com/1d5ccbdd4e.js" crossorigin="anonymous"></script>
 </head>
 <body class="dark">
-    <div id="new-event-form" class="m_hide">
-        <h3>Yeni Etkinlik</h3>
-        <div class="form-group">
-            <label for="new-event-time">Saat: </label>
-            <input class="new-event" type="time" name="new-event-time" id="new-event-time">
+        <div id="new-event-form" class="m_hide">
+            <button id="add-new-event-close" class="add-new-event-buttons"><i class="fas fa-arrow-left"></i></button>
+            <h3>Yeni Etkinlik</h3>
+            <div class="form-group">
+                <label for="new-event-time">Saat: </label>
+                <input class="new-event" type="time" name="new-event-time" id="new-event-time">
+            </div>
+            <div class="form-group">
+                <label for="new-event-text">Etkinlik: </label>
+                <textarea class="new-event" name="new-event-text" id="new-event-text" cols="30" rows="10"></textarea>
+            </div>
+    
+            <button id="new-event-button" class="new-event-button">Oluştur</button>
         </div>
-        <div class="form-group">
-            <label for="new-event-text">Etkinlik: </label>
-            <textarea class="new-event" name="new-event-text" id="new-event-text" cols="30" rows="10"></textarea>
-        </div>
-
-        <button id="new-event-button" class="new-event-button">Oluştur</button>
-    </div>
 
     <div class="wrapper" id="wrapper">
 
@@ -70,7 +72,7 @@
             <div class="events-container" id="events-container">
                 <div id="events-list"></div>
                 
-                <button class="add-new-event">+</button>
+                <button id="add-new-event-open" class="add-new-event-buttons"><i class="fas fa-plus"></i></button>
             </div>
 
         </div>

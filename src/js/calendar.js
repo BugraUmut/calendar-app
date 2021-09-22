@@ -1,3 +1,5 @@
+const jsonFile = "./test.json"
+
 var today = new Date()
 var currentMonth = today.getMonth()
 var currentYear = today.getFullYear()
@@ -7,18 +9,24 @@ var eventsContainer = document.getElementById("events-list")
 var eventJson, lastSelectedDate
 
 function readTextFile(file, callback) {
-    var rawFile = new XMLHttpRequest()
-    rawFile.overrideMimeType("application/json")
-    rawFile.open("GET", file, true)
-    rawFile.onreadystatechange = function() {
-        if (rawFile.readyState === 4 && rawFile.status == "200") {
-            callback(rawFile.responseText)
+    let xobj = new XMLHttpRequest()
+    xobj.overrideMimeType("application/json")
+    xobj.open("GET", file, true)
+    xobj.onreadystatechange = function() {
+        if (xobj.readyState === 4 && xobj.status == "200") {
+            callback(xobj.responseText)
         }
     }
-    rawFile.send(null)
+    xobj.send(null)
 }
 
-readTextFile("./test.json", function(text){
+// function writeTextFile(file) {
+//     fs.writeFile(file, eventJson, (err) => {
+//         if(err) return console.log(err)
+//     })
+// }
+
+readTextFile(jsonFile, function(text){
     eventJson = JSON.parse(text)
     showCalendar(currentMonth, currentYear)
 })
@@ -118,7 +126,7 @@ function showCalendar(month, year) {
                 cell.setAttribute("data-year", year)
                 cell.setAttribute("data-month_name", months[month])
                 cell.setAttribute('title', `${date} ${months[month]} ${year}`)
-                cell.setAttribute('data-full_date', `${date}-${month}-${year}`)
+                cell.setAttribute('data-full_date', `${date}-${month + 1}-${year}`)
                 cell.addEventListener('click', renderEvents)
                 
                 cell.className = "date-picker"
@@ -160,7 +168,6 @@ function renderEvents(e) {
         <div class="event-name">${ev.eventName}</div></div>`
         });
     } catch (err) {
-        console.log(err)
         eventsContainer.innerHTML = `<div class="event">${e.target.getAttribute("title")} Tarihinde Hiçbir Etkinliğiniz Bulunmamaktadır.</div>`
     }
 
@@ -180,14 +187,50 @@ dark_mode_toggle.onclick = () => {
     document.querySelector('body').classList.toggle('dark')
 }
 
-let new_event_form_open = document.querySelector('.add-new-event')
-let new_event_form_close = document.querySelector('#new-event-button')
+let new_event_form = document.getElementById('new-event-form')
+let main_area = document.getElementById('wrapper')
 
-new_event_form_open.onclick = changeWindows()
+let new_event_form_open = document.getElementById('add-new-event-open')
+let new_event_form_close = document.getElementById('add-new-event-close')
+
+new_event_form_open.onclick = () => { changeWindows(main_area, new_event_form) }
+new_event_form_close.onclick = () => { changeWindows(new_event_form, main_area) }
 
 function changeWindows(elemToHide, elemToShow) {
-
+    elemToHide.className = "animate__animated animate__backOutDown"
+    elemToShow.className = "animate__animated animate__backInDown"
 }
 
-// animate__backInDown
-// animate__backOutDown
+let new_event_button = document.getElementById('new-event-button')
+new_event_button.onclick = () => { addNewEvent() }
+
+function addNewEvent() {
+    let new_event_time = document.getElementById('new-event-time').value
+    let new_event_desc = document.getElementById('new-event-text').value
+    let new_event_date = lastSelectedDate.dataset.full_date
+    
+    
+    if(eventJson[new_event_date] === undefined) {
+        let eventObj = {
+            "events": [
+                {
+                    "eventName": new_event_desc,
+                    "eventTime": new_event_time,
+                    "isFinished": false
+                }
+            ]
+        }
+
+        eventJson[new_event_date] = eventObj
+    } else {
+        eventJson[new_event_date].events.push({
+            "eventName": new_event_desc,
+            "eventTime": new_event_time,
+            "isFinished": false
+        })
+    }
+
+    showCalendar(currentMonth, currentYear)
+
+    // writeTextFile(jsonFile)
+}
