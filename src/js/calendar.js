@@ -1,5 +1,3 @@
-const jsonFile = "./test.json"
-
 var today = new Date()
 var currentMonth = today.getMonth()
 var currentYear = today.getFullYear()
@@ -7,29 +5,14 @@ var selectYear = document.getElementById("year")
 var selectMonth = document.getElementById("month")
 var eventsContainer = document.getElementById("events-list")
 var eventJson, lastSelectedDate
+var isFirstTime = true
 
-function readTextFile(file, callback) {
-    let xobj = new XMLHttpRequest()
-    xobj.overrideMimeType("application/json")
-    xobj.open("GET", file, true)
-    xobj.onreadystatechange = function() {
-        if (xobj.readyState === 4 && xobj.status == "200") {
-            callback(xobj.responseText)
-        }
+function loadEvents() {
+    eventJson = JSON.parse(localStorage.getItem('events'))
+    if(eventJson === null) {
+        eventJson = {}
     }
-    xobj.send(null)
 }
-
-// function writeTextFile(file) {
-//     fs.writeFile(file, eventJson, (err) => {
-//         if(err) return console.log(err)
-//     })
-// }
-
-readTextFile(jsonFile, function(text){
-    eventJson = JSON.parse(text)
-    showCalendar(currentMonth, currentYear)
-})
 
 createYear = generate_year_range(1970, (currentYear + 20))
 
@@ -94,6 +77,10 @@ function jump() {
     showCalendar(currentMonth, currentYear)
 }
 
+(() => {
+    loadEvents()
+    showCalendar(currentMonth, currentYear)
+})()
 function showCalendar(month, year) {
 
     var firstDay = (new Date(year, month)).getDay()
@@ -132,10 +119,11 @@ function showCalendar(month, year) {
                 cell.className = "date-picker"
                 cell.innerHTML = date
 
-                if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+                if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth() && isFirstTime === true) {
                     lastSelectedDate = cell
                     cell.click()
                     cell.className = "date-picker selected"
+                    isFirstTime = false
                 }
                 row.appendChild(cell)
                 date++
@@ -149,6 +137,8 @@ function showCalendar(month, year) {
 
     document.querySelector(".events-container").style.minHeight = '' +document.querySelector('.main-container').offsetHeight + 'px'
     document.querySelector(".events-container").style.maxHeight = '' +document.querySelector('.main-container').offsetHeight + 'px'
+
+    lastSelectedDate.click()
 }
 
 function daysInMonth(iMonth, iYear) {
@@ -172,12 +162,6 @@ function renderEvents(e) {
     }
 
     e.target.className = "date-picker selected"
-
-    // if(eventsContainer.offsetTop < document.getElementById('events-container').offsetTop) {
-    //     eventsContainer.style.marginTop = `calc(${document.getElementById('events-container').offsetTop}px + 4rem)`
-    // } else {
-    //     eventsContainer.style.marginTop = '0px'
-    // }
 }
 
 let dark_mode_toggle = document.querySelector('.dark-mode-switch')
@@ -205,32 +189,55 @@ let new_event_button = document.getElementById('new-event-button')
 new_event_button.onclick = () => { addNewEvent() }
 
 function addNewEvent() {
-    let new_event_time = document.getElementById('new-event-time').value
-    let new_event_desc = document.getElementById('new-event-text').value
-    let new_event_date = lastSelectedDate.dataset.full_date
-    
-    
-    if(eventJson[new_event_date] === undefined) {
-        let eventObj = {
-            "events": [
-                {
-                    "eventName": new_event_desc,
-                    "eventTime": new_event_time,
-                    "isFinished": false
-                }
-            ]
+    try {
+        let new_event_time = document.getElementById('new-event-time').value
+        let new_event_desc = document.getElementById('new-event-text').value
+        let new_event_date = lastSelectedDate.dataset.full_date
+        
+        
+        if(eventJson[new_event_date] === undefined) {
+            let eventObj = {
+                "events": [
+                    {
+                        "eventName": new_event_desc,
+                        "eventTime": new_event_time,
+                        "isFinished": false
+                    }
+                ]
+            }
+
+            eventJson[new_event_date] = eventObj
+        } else {
+            eventJson[new_event_date].events.push({
+                "eventName": new_event_desc,
+                "eventTime": new_event_time,
+                "isFinished": false
+            })
         }
 
-        eventJson[new_event_date] = eventObj
+        localStorage.setItem('events', JSON.stringify(eventJson))
+        showCalendar(currentMonth, currentYear)
+        launch_toast("Etkinlik", "Başarıyla Kaydedildi", false)
+        new_event_form_close.click()
+    } catch (error) {
+        launch_toast("Etkinlik", "Kaydetme Başarısız", false)
+    }
+}
+
+function launch_toast(icon, desc, isFailed) {
+    var x = document.getElementById("toast")
+    
+    document.getElementById('img').innerHTML = icon
+    document.getElementById('desc').innerHTML = desc
+
+    if(isFailed) {
+        x.className = "show failed"
     } else {
-        eventJson[new_event_date].events.push({
-            "eventName": new_event_desc,
-            "eventTime": new_event_time,
-            "isFinished": false
-        })
+        x.className = "show successed"
     }
 
-    showCalendar(currentMonth, currentYear)
-
-    // writeTextFile(jsonFile)
+    setTimeout(() => {
+        x.className = x.className = ""
+    }, 5000)
+    
 }
