@@ -9,10 +9,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script src="https://kit.fontawesome.com/1d5ccbdd4e.js" crossorigin="anonymous"></script>
 </head>
-<body class="dark">
+<body class="light">
         <div id="new-event-form" class="m_hide">
             <button id="add-new-event-close" class="add-new-event-buttons"><i class="fas fa-arrow-left"></i></button>
             <h3>Yeni Etkinlik</h3>
+            <div class="form-group">
+                <label for="new-event-header">Başlık: </label>
+                <input class="new-event" type="text" name="new-event-header" id="new-event-header">
+            </div>
             <div class="form-group">
                 <label for="new-event-time">Saat: </label>
                 <input class="new-event" type="time" name="new-event-time" id="new-event-time">
@@ -42,7 +46,7 @@
                 </table>
                 
                 <div class="footer-container-calendar">
-                     <label for="month">Tarihe Git: </label>
+                     <label for="month">Tarihe Git:</label>
                      <select id="month" onchange="jump()">
                          <option value=0>Ocak</option>
                          <option value=1>Şubat</option>
@@ -60,12 +64,12 @@
                      <select id="year" onchange="jump()"></select>       
                 </div>
 
-                <div class="toggle">
+                <!-- <div class="toggle">
                     <span>Koyu Tema</span>
                     <div class="dark-mode-switch">
                         <div class="dark-mode-switch-ident"></div>
                     </div>
-                </div>
+                </div> -->
 
             </div>
 

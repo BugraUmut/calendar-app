@@ -73,16 +73,16 @@ html {
 
 body {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;    
     background: var(--bg-body);
     color: var(--color-txt);
     overflow: hidden;
 }
 
 .container-calendar {
-    width: 90vw;
-    height: 90vh;
+    min-width: 100vw;
+    min-height: 100vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -93,8 +93,14 @@ body {
 
 .main-container {
     background: var(--bg-main);
-    border-radius: 8%;
-    padding: 1rem;
+    padding: 0 1rem 1rem 1rem;
+    min-width: 50vw;
+    min-height: 100vh;
+    position: relative;
+}
+
+.button-container-calendar {
+    margin-bottom: 10px;
 }
 
 .button-container-calendar h3 {
@@ -115,20 +121,31 @@ table {
     table-layout: fixed;
 }
 
-th {
-    padding: .1rem;
-    width: 1.7rem;
+td {
+    min-width: 92px;
+    max-width: 92px;
+    min-height: 92px;
+    max-height: 92px;
+    padding: 1.5rem;
+    text-overflow: ellipsis;
+    overflow: hidden !important;
+    white-space: nowrap;
 }
 
-td {
-    padding: .2rem;
-    border-radius: 50%;
+.date-picker .cell-text-event-name {
+    font-size: .5rem;
+    max-height: 1rem;
 }
 
 .date-picker:hover/*:not(.selected)*/ {
     background: var(--color-hover);
     cursor: pointer;
 }
+
+/* .footer-container-calendar {
+    position: absolute;
+    bottom: 1rem;
+} */
 
 .selected {
     border: 2px solid var(--blue);
@@ -139,11 +156,10 @@ td {
     display: flex;
     position: relative;
     overflow: auto;
-    max-height: 80vh;
-    width: 50vw;
-    margin-left: 1rem;
+    min-width: 50vw;
+    min-height: 100vh;
     background: var(--bg-main);
-    border-radius: 15px;
+    border-left: 2px solid var(--color-txt);
 }
 
 .events-container::-webkit-scrollbar {
@@ -205,7 +221,6 @@ td {
     flex-direction: column;
     background: var(--bg-main);
     padding: 2rem;
-    border-radius: 10px;
     text-align: center;
 }
 
@@ -236,6 +251,16 @@ td {
 .new-event-button:hover {
     background: var(--button-color);
     color: #fff;
+}
+
+input:focus, textarea {
+    padding: 1px;
+    outline: none;
+    resize: none;
+}
+
+.cell-text-event-name {
+    overflow: hidden;
 }
 
 .toggle {
@@ -308,8 +333,6 @@ td {
     color: #fff;
 }
 #toast #desc{
-
-    
     color: #fff;
    
     padding: 16px;
@@ -387,3 +410,48 @@ td {
     from {bottom: 30px; opacity: 1;}
     to {bottom: 60px; opacity: 0;}
 }
+
+/* MENU */
+
+.menu {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    padding: 0;
+  }
+  .line {
+    fill: none;
+    stroke: black;
+    stroke-width: 6;
+    transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+      stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .line1 {
+    stroke-dasharray: 60 207;
+    stroke-width: 6;
+  }
+  .line2 {
+    stroke-dasharray: 60 60;
+    stroke-width: 6;
+  }
+  .line3 {
+    stroke-dasharray: 60 207;
+    stroke-width: 6;
+  }
+  .opened .line1 {
+    stroke-dasharray: 90 207;
+    stroke-dashoffset: -134;
+    stroke-width: 6;
+  }
+  .opened .line2 {
+    stroke-dasharray: 1 60;
+    stroke-dashoffset: -30;
+    stroke-width: 6;
+  }
+  .opened .line3 {
+    stroke-dasharray: 90 207;
+    stroke-dashoffset: -134;
+    stroke-width: 6;
+  }
+  

@@ -81,6 +81,7 @@ function jump() {
     loadEvents()
     showCalendar(currentMonth, currentYear)
 })()
+
 function showCalendar(month, year) {
 
     var firstDay = (new Date(year, month)).getDay()
@@ -108,6 +109,21 @@ function showCalendar(month, year) {
                 break
             } else {
                 let cell = document.createElement("td")
+                let cellText_date = document.createElement("span")
+                // let cellText_event = document.createElement("span")
+
+                cellText_date.className = "cell-text-date"
+                cellText_date.innerHTML = date
+
+                // cellText_event.className = "cell-text-event-name"
+
+                // try {
+                //     let event = eventJson[`${date}-${month + 1}-${year}`].events
+                //     cellText_event.innerHTML = event[0].eventHeader
+                // } catch (err) {
+                //     // skip the error
+                // }
+
                 cell.setAttribute("data-date", date)
                 cell.setAttribute("data-month", month + 1)
                 cell.setAttribute("data-year", year)
@@ -115,9 +131,8 @@ function showCalendar(month, year) {
                 cell.setAttribute('title', `${date} ${months[month]} ${year}`)
                 cell.setAttribute('data-full_date', `${date}-${month + 1}-${year}`)
                 cell.addEventListener('click', renderEvents)
-                
+
                 cell.className = "date-picker"
-                cell.innerHTML = date
 
                 if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth() && isFirstTime === true) {
                     lastSelectedDate = cell
@@ -126,6 +141,10 @@ function showCalendar(month, year) {
                     isFirstTime = false
                 }
                 row.appendChild(cell)
+                cell.appendChild(cellText_date)
+                // cell.appendChild(document.createElement("br"))
+                // cellText_event.style.maxWidth = cell.style.width + "px"
+                // cell.appendChild(cellText_event)
                 date++
             }
 
@@ -135,8 +154,8 @@ function showCalendar(month, year) {
         tbl.appendChild(row)
     }
 
-    document.querySelector(".events-container").style.minHeight = '' +document.querySelector('.main-container').offsetHeight + 'px'
-    document.querySelector(".events-container").style.maxHeight = '' +document.querySelector('.main-container').offsetHeight + 'px'
+    // document.querySelector(".events-container").style.minHeight = '' +document.querySelector('.main-container').offsetHeight + 'px'
+    // document.querySelector(".events-container").style.maxHeight = '' +document.querySelector('.main-container').offsetHeight + 'px'
 
     lastSelectedDate.click()
 }
@@ -146,11 +165,17 @@ function daysInMonth(iMonth, iYear) {
 }
 
 function renderEvents(e) {
+    let target
+    if(!e.target.className.includes("date-picker")) {
+        target = e.target.parentElement
+    } else {
+        target = e.target
+    }
     try {
         lastSelectedDate.className = "date-picker"
-        lastSelectedDate = e.target
-
-        let selectedDate = e.target.dataset.full_date
+        lastSelectedDate = target
+        
+        let selectedDate = target.dataset.full_date
         let event = eventJson[selectedDate].events
         eventsContainer.innerHTML = ''
         event.forEach(ev => {
@@ -158,18 +183,18 @@ function renderEvents(e) {
         <div class="event-name">${ev.eventName}</div></div>`
         });
     } catch (err) {
-        eventsContainer.innerHTML = `<div class="event">${e.target.getAttribute("title")} Tarihinde Hiçbir Etkinliğiniz Bulunmamaktadır.</div>`
+        eventsContainer.innerHTML = `<div class="event">${target.getAttribute("title")} Tarihinde Hiçbir Etkinliğiniz Bulunmamaktadır.</div>`
     }
 
-    e.target.className = "date-picker selected"
+    target.className = "date-picker selected"
 }
 
-let dark_mode_toggle = document.querySelector('.dark-mode-switch')
+// let dark_mode_toggle = document.querySelector('.dark-mode-switch')
 
-dark_mode_toggle.onclick = () => {
-    document.querySelector('body').classList.toggle('light')
-    document.querySelector('body').classList.toggle('dark')
-}
+// dark_mode_toggle.onclick = () => {
+//     document.querySelector('body').classList.toggle('light')
+//     document.querySelector('body').classList.toggle('dark')
+// }
 
 let new_event_form = document.getElementById('new-event-form')
 let main_area = document.getElementById('wrapper')
@@ -190,6 +215,7 @@ new_event_button.onclick = () => { addNewEvent() }
 
 function addNewEvent() {
     try {
+        let new_event_header = document.getElementById('new-event-header').value
         let new_event_time = document.getElementById('new-event-time').value
         let new_event_desc = document.getElementById('new-event-text').value
         let new_event_date = lastSelectedDate.dataset.full_date
@@ -199,6 +225,7 @@ function addNewEvent() {
             let eventObj = {
                 "events": [
                     {
+                        "eventHeader": new_event_header,
                         "eventName": new_event_desc,
                         "eventTime": new_event_time,
                         "isFinished": false
@@ -209,6 +236,7 @@ function addNewEvent() {
             eventJson[new_event_date] = eventObj
         } else {
             eventJson[new_event_date].events.push({
+                "eventHeader": new_event_header,
                 "eventName": new_event_desc,
                 "eventTime": new_event_time,
                 "isFinished": false
