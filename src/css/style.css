@@ -17,6 +17,8 @@
     --light-scrollbar-thumb: rgb(54, 54, 54);
     --light-button-color: #343a40;
 
+    --finished-event-color: var(--color-hover);
+    --unfinished-event-color: rgba(251, 255, 0, .7);
 
     --blue: #0000ff;
     --blue-hover: #0000b9;
@@ -176,8 +178,13 @@ td {
 
 .event {
     display: flex;
+    align-items: center;
     margin: 1rem 0;
     padding: 0 10px;
+}
+
+.event input[type="checkbox"] {
+    margin-right: 10px;
 }
 
 .event-date {
@@ -233,6 +240,14 @@ td {
 .form-group > .new-event {
     float: right;
     width: 70%;
+}
+
+.unfinished-event {
+    background: var(--unfinished-event-color) !important;
+}
+
+.finished-event {
+    background: var(--color-hover) !important;
 }
 
 .new-event-button {
@@ -455,3 +470,6 @@ input:focus, textarea {
     stroke-width: 6;
   }
   
+
+  /* CHECKBOX */
+ 

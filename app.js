@@ -1,4 +1,5 @@
 const { app, BrowserWindow } = require('electron');
+const path = require('path')
 
 app.whenReady().then(() => {
 	createWindow();
@@ -23,9 +24,14 @@ function createWindow() {
 		height: 600,
 		webPreferences: {
 			nativeWindowOpen: true
-		}
+		},
+		icon: __dirname + "/icon.png",
+		show: false
 	});
 	win.removeMenu();
-	win.webContents.openDevTools();
 	win.loadFile('index.html')
+	win.maximize()
+	win.show()
 }
+
+// https://github.com/electron-userland/electron-builder

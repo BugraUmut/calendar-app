@@ -1,3 +1,10 @@
+// const checkbox = (str) => {
+//     return `<label class="checkbox-container">${str}
+// <input type="checkbox" checked="checked">
+// <span class="checkmark"></span>
+// </label>`
+// }
+
 var today = new Date()
 var currentMonth = today.getMonth()
 var currentYear = today.getFullYear()
@@ -124,22 +131,43 @@ function showCalendar(month, year) {
                 //     // skip the error
                 // }
 
+                let full_date = `${date}-${month + 1}-${year}`
+                let cName = ""
+
                 cell.setAttribute("data-date", date)
                 cell.setAttribute("data-month", month + 1)
                 cell.setAttribute("data-year", year)
                 cell.setAttribute("data-month_name", months[month])
                 cell.setAttribute('title', `${date} ${months[month]} ${year}`)
-                cell.setAttribute('data-full_date', `${date}-${month + 1}-${year}`)
+                cell.setAttribute('data-full_date', full_date)
                 cell.addEventListener('click', renderEvents)
 
-                cell.className = "date-picker"
+                try {
+                    let selectedDate = full_date
+                    let event = eventJson[selectedDate].events
+                    let isThereAnyUnfinishedEvent = false
+                    event.forEach(ev => {
+                        if(ev.isFinished == false) {
+                            cName = "unfinished-event"
+                            isThereAnyUnfinishedEvent = true
+                        } else if(!isThereAnyUnfinishedEvent) {
+                            cName = "finished-event"
+                        }
+                    });
+                } catch (err) {
+                    // do nothing
+                }
+
+                cName +=  " date-picker"
 
                 if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth() && isFirstTime === true) {
                     lastSelectedDate = cell
+                    cName += " selected"
+                    cell.className = cName
                     cell.click()
-                    cell.className = "date-picker selected"
                     isFirstTime = false
                 }
+                cell.className = cName
                 row.appendChild(cell)
                 cell.appendChild(cellText_date)
                 // cell.appendChild(document.createElement("br"))
@@ -172,23 +200,40 @@ function renderEvents(e) {
         target = e.target
     }
     try {
-        lastSelectedDate.className = "date-picker"
+        lastSelectedDate.classList.remove("selected")
         lastSelectedDate = target
         
         let selectedDate = target.dataset.full_date
         let event = eventJson[selectedDate].events
         eventsContainer.innerHTML = ''
-        event.forEach(ev => {
-            eventsContainer.innerHTML += `<div class="event"><div class="event-date">${ev.eventTime}</div>
-        <div class="event-name">${ev.eventName}</div></div>`
-        });
+        for(let i = 0; i < event.length; i++) {
+            // eventsContainer.innerHTML += checkbox(`<div class="event"><div class="event-date">${ev.eventTime}</div>
+            // <div class="event-name">${ev.eventName}</div></div>`)
+
+            let isChecked = event[i].isFinished ? "checked" : ""
+
+            eventsContainer.innerHTML += `
+            <div class="event">
+                <input type="checkbox" data-full_date="${selectedDate}" data-index="${i}" onclick="testtt(this)" ${isChecked}>
+                <div class="event-date">${event[i].eventTime}</div>
+                <div class="event-name">${event[i].eventName}</div>
+            </div>
+            `
+        }
     } catch (err) {
         eventsContainer.innerHTML = `<div class="event">${target.getAttribute("title")} Tarihinde Hiçbir Etkinliğiniz Bulunmamaktadır.</div>`
     }
 
-    target.className = "date-picker selected"
-}
+    target.classList.add("selected")
 
+    document.getElementsByClassName('checkbox-container')
+}
+function testtt(e) {
+    eventJson[e.dataset.full_date].events[e.dataset.index].isFinished = e.checked
+    localStorage.setItem('events', JSON.stringify(eventJson))
+    console.log(lastSelectedDate)
+    showCalendar(currentMonth, currentYear)
+}
 // let dark_mode_toggle = document.querySelector('.dark-mode-switch')
 
 // dark_mode_toggle.onclick = () => {
