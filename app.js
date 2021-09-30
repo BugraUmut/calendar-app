@@ -35,3 +35,9 @@ function createWindow() {
 }
 
 // https://github.com/electron-userland/electron-builder
+/*
+
+Yeni etkinlik formuna gelir/gider eklenicek
+Yeni etkinlik eklendiğinde seçilen bug
+
+*/
